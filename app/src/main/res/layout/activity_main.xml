@@ -19,7 +19,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/thumbnail_rv"
         android:gravity="center"
-        android:text="SELECT FROM GALLERY" />
+        android:text="SELECT FROM GALLERY"
+        android:onClick="selectSaveFromGallery"/>
 
     <!--<ImageView-->
     <!--android:id="@+id/gallery_btn"-->
@@ -30,12 +31,14 @@
     <!--android:layout_below="@id/thumbnail_rv"-->
     <!--/>-->
 
-    <ImageView
+    <LinearLayout
         android:id="@+id/placeholder"
         android:layout_width="match_parent"
         android:layout_height="375dp"
         android:layout_below="@+id/gallery_btn"
-        android:src="@drawable/placeholder" />
+        android:background="@drawable/placeholder"
+        android:orientation="vertical">
+</LinearLayout>
 
 
     <ImageView
@@ -56,7 +59,8 @@
         android:layout_marginTop="@dimen/left_indent"
         android:layout_toRightOf="@id/share_btn"
         android:gravity="center"
-        android:text="FINISHED" />
+        android:text="FINISHED"
+        android:onClick="selectSaveFromGallery"/>
 
 
     <ImageView

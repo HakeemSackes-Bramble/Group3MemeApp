@@ -2,7 +2,9 @@ package nyc.c4q.akashaarcher.group3memestudio;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import java.util.Arrays;
 import java.util.List;
@@ -13,7 +15,7 @@ import nyc.c4q.akashaarcher.group3memestudio.model.Thumbnails;
  * Created by akashaarcher on 1/9/17.
  */
 
-public class ThumbnailAdapter extends RecyclerView.Adapter  {
+public class ThumbnailAdapter extends RecyclerView.Adapter {
 
     Context context;
     private List<Thumbnails> thumbnails = Arrays.asList(
@@ -30,10 +32,27 @@ public class ThumbnailAdapter extends RecyclerView.Adapter  {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         ThumbnailViewHolder viewHolder = (ThumbnailViewHolder) holder;
-        Thumbnails thumbnail = thumbnails.get(position);
+        final Thumbnails thumbnail = thumbnails.get(position);
         viewHolder.bind(thumbnail);
+        viewHolder.getMemePic().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            switch (thumbnails.get(position).getTitle()){
+
+                case "Lily!":
+                    ImageView myImage = new ImageView(view.getContext());
+                    MainActivity.getmPlaceHolder().addView(myImage);
+                    myImage.setImageResource(R.drawable.lily_thumb);
+                    myImage.setScaleX((float)0.2);
+                    myImage.setScaleY((float) 0.2);
+                    break;
+            }
+            }
+        });
+
+
 
     }
 
@@ -42,9 +61,6 @@ public class ThumbnailAdapter extends RecyclerView.Adapter  {
     public int getItemCount() {
         return thumbnails.size();
     }
-
-
-
 
 
 

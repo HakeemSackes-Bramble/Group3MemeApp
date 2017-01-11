@@ -34,6 +34,14 @@ public class ThumbnailViewHolder extends RecyclerView.ViewHolder {
         return inflater.inflate(R.layout.thumbnail_layout, parent, false);
     }
 
+    public ImageView getMemePic() {
+        return memePic;
+    }
+
+    public TextView getMemeTitle() {
+        return memeTitle;
+    }
+
     public void bind(Thumbnails thumbnail) {
         memeTitle.setText(thumbnail.getTitle());
         Integer resource = thumbnail.getImageResource();
@@ -44,6 +52,8 @@ public class ThumbnailViewHolder extends RecyclerView.ViewHolder {
         if (resource != null) {
             memePic.setImageResource(resource);
         }
+
+
     }
 
 
