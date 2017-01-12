@@ -46,7 +46,12 @@ public class ThumbnailAdapter extends RecyclerView.Adapter {
                     MainActivity.getmPlaceHolder().addView(myImage);
                     myImage.setImageResource(R.drawable.lily_thumb);
                     myImage.setScaleX((float)0.2);
-                    myImage.setScaleY((float) 0.2);
+                    myImage.setScaleY((float)0.2);
+                    break;
+
+                case "Demotivate":
+
+
                     break;
             }
             }
