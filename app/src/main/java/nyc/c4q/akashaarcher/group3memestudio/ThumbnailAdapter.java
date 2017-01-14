@@ -1,6 +1,8 @@
 package nyc.c4q.akashaarcher.group3memestudio;
 
 import android.content.Context;
+import android.content.Intent;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +19,7 @@ import nyc.c4q.akashaarcher.group3memestudio.model.Thumbnails;
 
 public class ThumbnailAdapter extends RecyclerView.Adapter {
 
-    Context context;
+    Intent innerIntent;
     private List<Thumbnails> thumbnails = Arrays.asList(
             new Thumbnails(R.drawable.demotivation_thumb, "Demotivate"),
             new Thumbnails(R.drawable.honey_bun_thumb, "Honey Bun"),
@@ -53,6 +55,11 @@ public class ThumbnailAdapter extends RecyclerView.Adapter {
 
 
                     break;
+                case "Inner Me":
+                    ImageView innerImage = new ImageView(view.getContext());
+                    MainActivity.getmPlaceHolder().addView(innerImage);
+                     innerIntent = new Intent(view.getContext(), InnerMeActivity.class);
+                    view.getContext().startActivity(innerIntent);
             }
             }
         });
