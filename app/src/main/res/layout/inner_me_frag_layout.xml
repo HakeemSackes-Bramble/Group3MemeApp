@@ -25,7 +25,27 @@
         android:text="@string/select_from_gallery"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+<LinearLayout
+    android:layout_gravity="center"
+    android:layout_width="350dp"
+    android:layout_height="200dp">
+    <LinearLayout
+        android:id="@+id/inner_image_one"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
 
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/inner_image_two"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+    </LinearLayout>
+</LinearLayout>
     <ImageView
         android:id="@+id/inner_iv"
         android:layout_width="match_parent"
