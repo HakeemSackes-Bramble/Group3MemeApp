@@ -17,7 +17,15 @@ import nyc.c4q.akashaarcher.group3memestudio.model.Thumbnails;
 
 public class ThumbnailAdapter extends RecyclerView.Adapter {
 
+
+    public interface OnItemClickListener {
+        void onItemSelected(Thumbnails thumbnail);
+    }
+
+
     Context context;
+    private OnItemClickListener listener;
+
     private List<Thumbnails> thumbnails = Arrays.asList(
             new Thumbnails(R.drawable.demotivation_thumb, "Demotivate"),
             new Thumbnails(R.drawable.honey_bun_thumb, "Honey Bun"),
@@ -35,7 +43,7 @@ public class ThumbnailAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         ThumbnailViewHolder viewHolder = (ThumbnailViewHolder) holder;
         final Thumbnails thumbnail = thumbnails.get(position);
-        viewHolder.bind(thumbnail);
+        viewHolder.bind(thumbnail, listener);
         viewHolder.getMemePic().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -51,16 +59,19 @@ public class ThumbnailAdapter extends RecyclerView.Adapter {
 
                 case "Demotivate":
 
-
                     break;
             }
             }
         });
 
 
-
+        /**
+         *
+         *
+         * move logic from onBindViewHolder to 'bind' it is easier to work with a specific thumbnail object rather than dealing with final modifiers within the viewholder.
+         *
+         */
     }
-
 
     @Override
     public int getItemCount() {
