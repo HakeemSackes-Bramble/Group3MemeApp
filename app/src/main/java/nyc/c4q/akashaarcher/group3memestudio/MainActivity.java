@@ -46,19 +46,18 @@ public class MainActivity extends AppCompatActivity {
 
         switch (view.getId()){
             case R.id.gallery_btn:
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
-                break;
+            Intent intent = new Intent();
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+            break;
+
             case R.id.finished_btn:
-
-                mPlaceHolder.setDrawingCacheEnabled(true);
-                mPlaceHolder.buildDrawingCache(true);
-
-                Bitmap b = Bitmap.createBitmap(mPlaceHolder.getDrawingCache());
-                MediaStore.Images.Media.insertImage(getContentResolver(), b, "" , "");
-                break;
+            mPlaceHolder.setDrawingCacheEnabled(true);
+            mPlaceHolder.buildDrawingCache(true);
+            Bitmap b = Bitmap.createBitmap(mPlaceHolder.getDrawingCache());
+            MediaStore.Images.Media.insertImage(getContentResolver(), b, "" , "");
+            break;
         }
 
     }
@@ -73,10 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
                     try {
                         mBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-
-//                        ImageView imageView = (ImageView) findViewById(R.id.placeholder);
-//                        imageView.setImageBitmap(mBitmap);
-                        mPlaceHolder=(LinearLayout) findViewById(R.id.placeholder);
+                        mPlaceHolder = (LinearLayout) findViewById(R.id.placeholder);
                         Drawable d = new BitmapDrawable(getResources(), mBitmap);
                         mPlaceHolder.setBackground(d);
 
