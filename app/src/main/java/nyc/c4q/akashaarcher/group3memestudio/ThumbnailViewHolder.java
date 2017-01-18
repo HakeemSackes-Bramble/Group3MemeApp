@@ -92,6 +92,11 @@ public class ThumbnailViewHolder extends RecyclerView.ViewHolder implements Item
 
             case "Lily!":
                 Log.d(TAG, thumbnail.getTitle());
+                ImageView myImage = new ImageView(view.getContext());
+                MainActivity.getmPlaceHolder().addView(myImage);
+                myImage.setImageResource(R.drawable.lily_thumb);
+                myImage.setScaleX((float)0.2);
+                myImage.setScaleY((float)0.2);
                 // Lily logic here
                 break;
         }
