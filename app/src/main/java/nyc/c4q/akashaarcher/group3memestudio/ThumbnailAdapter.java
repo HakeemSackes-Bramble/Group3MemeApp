@@ -1,10 +1,7 @@
 package nyc.c4q.akashaarcher.group3memestudio;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import java.util.Arrays;
 import java.util.List;
@@ -17,14 +14,6 @@ import nyc.c4q.akashaarcher.group3memestudio.model.Thumbnails;
 
 public class ThumbnailAdapter extends RecyclerView.Adapter {
 
-
-    public interface OnItemClickListener {
-        void onItemSelected(Thumbnails thumbnail);
-    }
-
-
-    Context context;
-    private OnItemClickListener listener;
 
     private List<Thumbnails> thumbnails = Arrays.asList(
             new Thumbnails(R.drawable.demotivation_thumb, "Demotivate"),
@@ -40,38 +29,12 @@ public class ThumbnailAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ThumbnailViewHolder viewHolder = (ThumbnailViewHolder) holder;
-        final Thumbnails thumbnail = thumbnails.get(position);
-        viewHolder.bind(thumbnail, listener);
-        viewHolder.getMemePic().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            switch (thumbnails.get(position).getTitle()){
-
-                case "Lily!":
-                    ImageView myImage = new ImageView(view.getContext());
-                    MainActivity.getmPlaceHolder().addView(myImage);
-                    myImage.setImageResource(R.drawable.lily_thumb);
-                    myImage.setScaleX((float)0.2);
-                    myImage.setScaleY((float)0.2);
-                    break;
-
-                case "Demotivate":
-
-                    break;
-            }
-            }
-        });
-
-
-        /**
-         *
-         *
-         * move logic from onBindViewHolder to 'bind' it is easier to work with a specific thumbnail object rather than dealing with final modifiers within the viewholder.
-         *
-         */
+        Thumbnails thumbnail = thumbnails.get(position);
+        viewHolder.bind(thumbnail);
     }
+
 
     @Override
     public int getItemCount() {

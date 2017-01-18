@@ -2,6 +2,7 @@ package nyc.c4q.akashaarcher.group3memestudio;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,12 +18,17 @@ import nyc.c4q.akashaarcher.group3memestudio.model.Thumbnails;
  * Created by akashaarcher on 1/9/17.
  */
 
-public class ThumbnailViewHolder extends RecyclerView.ViewHolder implements ThumbnailAdapter.OnItemClickListener {
+public class ThumbnailViewHolder extends RecyclerView.ViewHolder implements ItemSelected {
 
+    private static final String TAG = "DEBUG TOOL";
     private final View view;
     private final ImageView  memePic;
     private final TextView memeTitle;
     private Context context;
+
+    public interface OnItemClickListener {
+        void onItemSelected(Thumbnails thumbnail);
+    }
 
 
     public ThumbnailViewHolder(ViewGroup parent) {
@@ -46,7 +52,7 @@ public class ThumbnailViewHolder extends RecyclerView.ViewHolder implements Thum
         return memeTitle;
     }
 
-    public void bind(final Thumbnails thumbnail, final ThumbnailAdapter.OnItemClickListener listener) {
+    public void bind(final Thumbnails thumbnail) {
         memeTitle.setText(thumbnail.getTitle());
         Integer resource = thumbnail.getImageResource();
         Picasso.with(view.getContext())
@@ -69,11 +75,26 @@ public class ThumbnailViewHolder extends RecyclerView.ViewHolder implements Thum
         Toast.makeText(context, thumbnail.getTitle(), Toast.LENGTH_SHORT).show();
 
         switch (thumbnail.getTitle()){
+            case "Demotivate":
+                //Demotivate logic
+                Log.d(TAG, thumbnail.getTitle());
+                break;
+            case "Honey Bun":
+                //Honey bun logic
+                Log.d(TAG, thumbnail.getTitle());
+                break;
+            case "Inner Me":
+                Log.d(TAG, thumbnail.getTitle());
+                break;
+            case "Painting":
+                Log.d(TAG, thumbnail.getTitle());
+                break;
+
             case "Lily!":
+                Log.d(TAG, thumbnail.getTitle());
                 // Lily logic here
+                break;
         }
-
-
     }
 
 
