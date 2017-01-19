@@ -28,20 +28,21 @@
 <LinearLayout
     android:layout_gravity="center"
     android:layout_width="350dp"
+    android:orientation="horizontal"
     android:layout_height="200dp">
     <LinearLayout
         android:id="@+id/inner_image_one"
         android:orientation="vertical"
-        android:layout_weight="1"
         android:layout_width="wrap_content"
+        android:layout_weight="1"
         android:layout_height="match_parent">
 
     </LinearLayout>
     <LinearLayout
         android:id="@+id/inner_image_two"
         android:orientation="vertical"
-        android:layout_weight="1"
         android:layout_width="wrap_content"
+        android:layout_weight="1"
         android:layout_height="match_parent">
 
     </LinearLayout>

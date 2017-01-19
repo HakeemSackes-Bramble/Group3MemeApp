@@ -2,12 +2,17 @@ package nyc.c4q.akashaarcher.group3memestudio;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import java.io.ByteArrayOutputStream;
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,6 +24,11 @@ import nyc.c4q.akashaarcher.group3memestudio.model.Thumbnails;
 
 public class ThumbnailAdapter extends RecyclerView.Adapter {
 
+    public static String getFirstImage() {
+        return FIRST_IMAGE;
+    }
+
+    private static final String FIRST_IMAGE ="getFirstImage" ;
     Intent innerIntent;
     private List<Thumbnails> thumbnails = Arrays.asList(
             new Thumbnails(R.drawable.demotivation_thumb, "Demotivate"),
@@ -56,8 +66,6 @@ public class ThumbnailAdapter extends RecyclerView.Adapter {
 
                     break;
                 case "Inner Me":
-                    ImageView innerImage = new ImageView(view.getContext());
-                    MainActivity.getmPlaceHolder().addView(innerImage);
                      innerIntent = new Intent(view.getContext(), InnerMeActivity.class);
                     view.getContext().startActivity(innerIntent);
             }
@@ -72,6 +80,14 @@ public class ThumbnailAdapter extends RecyclerView.Adapter {
     @Override
     public int getItemCount() {
         return thumbnails.size();
+    }
+
+    public String BitMapToString(Bitmap bitmap){
+        ByteArrayOutputStream baos=new  ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG,100, baos);
+        byte [] b=baos.toByteArray();
+        String temp= Base64.encodeToString(b, Base64.DEFAULT);
+        return temp;
     }
 
 
