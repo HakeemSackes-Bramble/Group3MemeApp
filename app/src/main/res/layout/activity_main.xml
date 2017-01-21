@@ -31,14 +31,16 @@
     <!--android:layout_below="@id/thumbnail_rv"-->
     <!--/>-->
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/placeholder"
         android:layout_width="match_parent"
         android:layout_height="375dp"
         android:layout_below="@+id/gallery_btn"
         android:background="@drawable/placeholder"
-        android:orientation="vertical">
-</LinearLayout>
+
+        >
+
+</RelativeLayout>
 
 
     <ImageView
@@ -48,7 +50,8 @@
         android:layout_alignParentBottom="true"
         android:layout_below="@id/placeholder"
         android:layout_marginLeft="@dimen/large_margin"
-        android:src="@drawable/share" />
+        android:src="@drawable/share"
+        android:onClick="selectSaveFromGallery"/>
 
     <Button
         android:id="@+id/finished_btn"

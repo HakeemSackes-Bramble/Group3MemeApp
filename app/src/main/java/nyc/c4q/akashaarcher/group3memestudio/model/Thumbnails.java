@@ -1,4 +1,4 @@
-package nyc.c4q.akashaarcher.group3memestudio.model;
+package nyc.c4q.akashaarcher.group3memestudio.Model;
 
 import android.support.annotation.DrawableRes;
 

@@ -14,20 +14,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ThumbnailAdapter.Listener {
 
 
-    private Context context;
+    private Context mContext;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private int PICK_IMAGE_REQUEST = 1;
     private Bitmap mBitmap;
-    private static LinearLayout mPlaceHolder;
-   // private ThumbnailAdapter adapter;
+    private  RelativeLayout mPlaceHolder;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,11 +36,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ActivityCompat.requestPermissions(MainActivity.this,
                 new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},1);
-
+        mPlaceHolder=(RelativeLayout) findViewById(R.id.placeholder);
         recyclerView = (RecyclerView) findViewById(R.id.thumbnail_rv);
-        layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+        layoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(new ThumbnailAdapter());
+
+
     }
 
     public void selectSaveFromGallery(View view){
@@ -59,8 +61,34 @@ public class MainActivity extends AppCompatActivity {
                 Bitmap b = Bitmap.createBitmap(mPlaceHolder.getDrawingCache());
                 MediaStore.Images.Media.insertImage(getContentResolver(), b, "" , "");
                 break;
+
+            case R.id.share_btn:
+
+                Intent shareIntent = new Intent();
+                mPlaceHolder.setDrawingCacheEnabled(true);
+                mPlaceHolder.buildDrawingCache(true);
+
+                Bitmap bitmap = Bitmap.createBitmap(mPlaceHolder.getDrawingCache());
+                shareIntent.setAction(Intent.ACTION_SEND);
+                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+                String path = MediaStore.Images.Media.insertImage(getContentResolver(),
+                        bitmap, "Title", null);
+                Uri imageUri =  Uri.parse(path);
+                shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
+                shareIntent.setType("image/jpeg");
+                startActivity(Intent.createChooser(shareIntent, "Share image using"));
+
+
+                break;
         }
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        recyclerView.setAdapter(new ThumbnailAdapter(recyclerView.getWidth(),this));
     }
 
             @Override
@@ -74,9 +102,7 @@ public class MainActivity extends AppCompatActivity {
                     try {
                         mBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
 
-//                        ImageView imageView = (ImageView) findViewById(R.id.placeholder);
-//                        imageView.setImageBitmap(mBitmap);
-                        mPlaceHolder=(LinearLayout) findViewById(R.id.placeholder);
+
                         Drawable d = new BitmapDrawable(getResources(), mBitmap);
                         mPlaceHolder.setBackground(d);
 
@@ -86,8 +112,13 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
-    public static LinearLayout getmPlaceHolder() {
-        return mPlaceHolder;
+
+
+    @Override
+    public void addRecView(RecyclerView recyclerView) {
+
+        mPlaceHolder.addView(recyclerView);
+
     }
 }
 

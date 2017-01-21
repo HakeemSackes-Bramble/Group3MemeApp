@@ -1,15 +1,16 @@
 package nyc.c4q.akashaarcher.group3memestudio;
 
-import android.content.Context;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import java.util.Arrays;
 import java.util.List;
 
-import nyc.c4q.akashaarcher.group3memestudio.model.Thumbnails;
+import nyc.c4q.akashaarcher.group3memestudio.LilyMeme.LilyAdapter;
+import nyc.c4q.akashaarcher.group3memestudio.Model.Thumbnails;
 
 /**
  * Created by akashaarcher on 1/9/17.
@@ -17,7 +18,17 @@ import nyc.c4q.akashaarcher.group3memestudio.model.Thumbnails;
 
 public class ThumbnailAdapter extends RecyclerView.Adapter {
 
-    Context context;
+    private int mWidth;
+
+    private Listener mListener;
+
+    public ThumbnailAdapter(int width, Listener listener){
+
+        this.mWidth=width;
+        this.mListener=listener;
+
+    }
+
     private List<Thumbnails> thumbnails = Arrays.asList(
             new Thumbnails(R.drawable.demotivation_thumb, "Demotivate"),
             new Thumbnails(R.drawable.honey_bun_thumb, "Honey Bun"),
@@ -42,17 +53,35 @@ public class ThumbnailAdapter extends RecyclerView.Adapter {
             switch (thumbnails.get(position).getTitle()){
 
                 case "Lily!":
-                    ImageView myImage = new ImageView(view.getContext());
-                    MainActivity.getmPlaceHolder().addView(myImage);
-                    myImage.setImageResource(R.drawable.lily_thumb);
-                    myImage.setScaleX((float)0.2);
-                    myImage.setScaleY((float)0.2);
+
+                    RecyclerView mRecViewTop = new RecyclerView(view.getContext());
+                    RecyclerView mRecViewBottom = new RecyclerView(view.getContext());
+                    mListener.addRecView(mRecViewTop);
+                    mListener.addRecView(mRecViewTop);
+                    RelativeLayout.LayoutParams layoutParams1=new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
+                            RelativeLayout.LayoutParams.WRAP_CONTENT);
+                    layoutParams1.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+                    LinearLayoutManager layoutManager1
+                            = new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false);
+                    mRecViewTop.setLayoutManager(layoutManager1);
+                    mRecViewTop.setAdapter(new LilyAdapter(thumbnails.get(position),mWidth));
+                    mRecViewTop.setLayoutParams(layoutParams1);
+                    RelativeLayout.LayoutParams layoutParams=new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
+                            RelativeLayout.LayoutParams.WRAP_CONTENT);
+                     layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+                    LinearLayoutManager layoutManager2
+                            = new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false);
+                    mRecViewBottom.setAdapter(new LilyAdapter(thumbnails.get(position),mWidth));
+                    mRecViewBottom.setLayoutManager(layoutManager2);
+                    mRecViewBottom.setLayoutParams(layoutParams);
                     break;
 
                 case "Demotivate":
 
 
                     break;
+
+
             }
             }
         });
@@ -65,6 +94,12 @@ public class ThumbnailAdapter extends RecyclerView.Adapter {
     @Override
     public int getItemCount() {
         return thumbnails.size();
+    }
+
+    public interface Listener{
+
+        void addRecView(RecyclerView recyclerView);
+
     }
 
 

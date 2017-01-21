@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import nyc.c4q.akashaarcher.group3memestudio.model.Thumbnails;
+import nyc.c4q.akashaarcher.group3memestudio.Model.Thumbnails;
 
 /**
  * Created by akashaarcher on 1/9/17.
@@ -49,9 +49,9 @@ public class ThumbnailViewHolder extends RecyclerView.ViewHolder {
                 .load(resource)
                 .resize(125, 125)
                 .into(memePic);
-        if (resource != null) {
-            memePic.setImageResource(resource);
-        }
+//        if (resource != null) {
+//            memePic.setImageResource(resource);
+//        }
 
 
     }
