@@ -4,16 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <!--
-      android:layout_centerHorizontal="true"
-      android:layout_below="@id/honey_bun_title"
-
-
-  android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-
-    -->
-
     <TextView
         android:id="@+id/honey_bun_title"
         android:layout_width="match_parent"
