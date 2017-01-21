@@ -48,11 +48,12 @@ public class MainActivity extends AppCompatActivity implements ThumbnailAdapter.
 
         switch (view.getId()){
             case R.id.gallery_btn:
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
-                break;
+            Intent intent = new Intent();
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+            break;
+
             case R.id.finished_btn:
 
                 mPlaceHolder.setDrawingCacheEnabled(true);
