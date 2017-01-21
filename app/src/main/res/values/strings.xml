@@ -2,6 +2,6 @@
     <string name="app_name">Group3MemeStudio</string>
     <string name="inner_title">Inner Me Meme</string>
     <string name="select_from_gallery">Select from gallery</string>
-    <string name="inner_sub_heading">Please select TWO images from your gallery</string>
+    <string name="inner_sub_heading">Please select ONE image from your gallery</string>
     <string name="save_photo">Save Photo to Gallery</string>
 </resources>

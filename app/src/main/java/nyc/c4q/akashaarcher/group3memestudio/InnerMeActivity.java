@@ -1,27 +1,22 @@
 package nyc.c4q.akashaarcher.group3memestudio;
 
-import android.content.ClipData;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -39,12 +34,15 @@ public class InnerMeActivity extends AppCompatActivity {
     ImageView photoView;
     Button selectPhotos;
     Button saveNewPhoto;
-    private Bitmap mBitmap;
-    private Bitmap mBitMap2;
+    private Bitmap mBitmapTwo;
+    private Bitmap mBitMapOne;
     private static LinearLayout mPlaceHolder;
     private static LinearLayout mSecondImage;
+    private static LinearLayout mInnerPhoto;
+    private static EditText secondText;
+    private static EditText firstText;
     private Bundle mIntent;
-    private static final String FIRST_IMAGE ="getFirstImage" ;
+    private static final String FIRST_IMAGE = "getFirstImage";
 
 
     @Override
@@ -53,16 +51,18 @@ public class InnerMeActivity extends AppCompatActivity {
         setContentView(R.layout.inner_me_frag_layout);
         innerTitle = (TextView) findViewById(R.id.inner_tv);
         innerSubHeading = (TextView) findViewById(R.id.inner_sub_head);
-        photoView = (ImageView) findViewById(R.id.inner_iv);
         selectPhotos = (Button) findViewById(R.id.inner_gallery_btn);
-        saveNewPhoto = (Button) findViewById(R.id.save_photo);
+        saveNewPhoto = (Button) findViewById(R.id.finished_btn);
         mIntent = getIntent().getExtras();
-        mBitMap2 = MainActivity.getmBitmap();
+        mBitMapOne = MainActivity.getmBitmap();
         mPlaceHolder = (LinearLayout) findViewById(R.id.inner_image_two);
-        Drawable d2 = new BitmapDrawable(getResources(), mBitMap2);
-        Log.d("Drawables", d2.toString());
+        mInnerPhoto = (LinearLayout) findViewById(R.id.inner_image_one);
+        secondText = (EditText) findViewById(R.id.second_pic_text);
+        firstText = (EditText) findViewById(R.id.first_pic_text);
+        Drawable d1 = new BitmapDrawable(getResources(), mBitMapOne);
+        Log.d("Drawables", d1.toString());
 
-        mPlaceHolder.setBackground(d2);
+        mInnerPhoto.setBackground(d1);
 
 
         selectPhotos.setOnClickListener(new View.OnClickListener() {
@@ -87,13 +87,18 @@ public class InnerMeActivity extends AppCompatActivity {
 
 
             try {
-                mBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                mBitmapTwo = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
 
-                mSecondImage = (LinearLayout) findViewById(R.id.inner_image_one);
+                mSecondImage = (LinearLayout) findViewById(R.id.inner_image_two);
+                mSecondImage.setVisibility(View.VISIBLE);
 
-                Drawable d = new BitmapDrawable(getResources(), mBitmap);
+                Drawable d2 = new BitmapDrawable(getResources(), mBitmapTwo);
                 Log.d("Placeholder", "new placeholder processed");
-                mSecondImage.setBackground(d);
+                d2.setColorFilter(Color.parseColor("grey"), PorterDuff.Mode.DARKEN);
+                mSecondImage.setBackground(d2);
+                firstText.setVisibility(View.VISIBLE);
+                secondText.setVisibility(View.VISIBLE);
+
 
                 Log.d("Last one", "Success!");
 
@@ -119,24 +124,27 @@ public class InnerMeActivity extends AppCompatActivity {
                 break;
             case R.id.finished_btn:
 
-                mPlaceHolder.setDrawingCacheEnabled(true);
-                mPlaceHolder.buildDrawingCache(true);
+                mInnerPhoto.setDrawingCacheEnabled(true);
+                mInnerPhoto.buildDrawingCache(true);
 
-                Bitmap b = Bitmap.createBitmap(mPlaceHolder.getDrawingCache());
+                Bitmap b = Bitmap.createBitmap(mInnerPhoto.getDrawingCache());
                 MediaStore.Images.Media.insertImage(getContentResolver(), b, "", "");
                 break;
         }
-
     }
 
-    public Bitmap StringToBitMap(String encodedString){
-        try{
-            byte [] encodeByte= Base64.decode(encodedString,Base64.DEFAULT);
-            Bitmap bitmap=BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+    public Bitmap StringToBitMap(String encodedString) {
+        try {
+            byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
             return bitmap;
-        }catch(Exception e){
+        } catch (Exception e) {
             e.getMessage();
             return null;
         }
+    }
+
+    public void addText(View view) {
+
     }
 }
