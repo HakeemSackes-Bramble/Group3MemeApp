@@ -29,12 +29,9 @@
     <!--android:src="@drawable/open_gallery"-->
     <!--android:gravity="center"-->
     <!--android:layout_below="@id/thumbnail_rv"-->
-
-    <!--      -->
-
     <!--/>-->
 
-    <LinearLayout
+    <nyc.c4q.akashaarcher.group3memestudio.customView.CustomLinearLayout
         android:id="@+id/placeholder"
         android:layout_width="match_parent"
         android:layout_height="375dp"
@@ -42,8 +39,7 @@
         android:layout_centerHorizontal="true"
         android:background="@drawable/placeholder"
         android:orientation="vertical">
-    </LinearLayout>
-
+    </nyc.c4q.akashaarcher.group3memestudio.customView.CustomLinearLayout>
 
     <ImageView
         android:id="@+id/share_btn"
