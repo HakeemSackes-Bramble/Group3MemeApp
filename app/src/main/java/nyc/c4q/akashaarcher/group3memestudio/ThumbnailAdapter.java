@@ -1,9 +1,8 @@
 package nyc.c4q.akashaarcher.group3memestudio;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -19,6 +18,8 @@ import nyc.c4q.akashaarcher.group3memestudio.model.Thumbnails;
 
 public class ThumbnailAdapter extends RecyclerView.Adapter {
 
+
+    Intent innerIntent;
     private String TAG = "Adapter";
     private ImageView ivHoneyBun;
 
@@ -47,77 +48,24 @@ public class ThumbnailAdapter extends RecyclerView.Adapter {
                 switch (thumbnails.get(position).getTitle()) {
 
                     case "Honey Bun":
-//                        final LinearLayout memeLayout = (LinearLayout) view.findViewById(R.id.placeholder);
-////                        memeLayout.setPadding(10, 30, 10, 10);
-//
-//
-////                        getmPlaceHolder().setBackgroundColor(0xFFFF00);
-////                       getmPlaceHolder().bringToFront();
-//                        int currWidth = getmPlaceHolder().getLayoutParams().width;
-//                        int currHeight = getmPlaceHolder().getLayoutParams().height;
-//
-//                        int width = memeImg.getIntrinsicWidth();
-//                        int height = memeImg.getIntrinsicHeight();
-//
-//                        Log.i(TAG, "dimensions " + width + " and " + height);
-//
-                        Drawable memeImg = MainActivity.getmPlaceHolder().getBackground();
-                        int width = memeImg.getIntrinsicWidth();
-                        int height = memeImg.getIntrinsicHeight();
-                        Log.i(TAG, "dimensions " + width + " and " + height);
-
-
-                        ImageView memeImage = new ImageView(view.getContext());
-                        MainActivity.getmPlaceHolder().setVisibility(View.GONE);
-                        MainActivity.getmPlaceHolder().addView(memeImage);
-                        memeImage.setImageResource(R.drawable.honey_bun_thumb);
-                        memeImage.setScaleX((float)0.2);
-                        memeImage.setScaleY((float)0.2);
-
-
-//                        ivHoneyBun = (ImageView) view.findViewById(R.id.honeybun_img);
-////
-//                        Picasso.with(view.getContext())
-//                                .load(String.valueOf(memeImg))
-//                                .resize(125, 125)
-//                                .into(ivHoneyBun);
-
-
-
-                        //   Drawable memeImg = MainActivity.getmPlaceHolder().getBackground();
-//                        Bitmap bitmap = ((BitmapDrawable) memeImg).getBitmap();
-//                        Drawable draw = new BitmapDrawable(context.getResources(), Bitmap.createScaledBitmap(bitmap, 250, 250, true));
-//                        MainActivity.getmPlaceHolder().setBackground(draw);
-
-
-//                        params.height = newHeight;
-//                        params.width=newWidth;
-//                       memeImg.setLayoutParams(params);
-//                        ImageView memeImg = new ImageView(view.getContext());
-//                        memeImg.getLayoutParams().width = newWidth;
-//                        memeImg.getLayoutParams().height = newHeight;
-//                        memeImg.setScaleType(ImageView.ScaleType.FIT_XY);
-
+                        Intent honeyBunIntent = new Intent(view.getContext(), HoneyBunActivity.class);
+                        view.getContext().startActivity(honeyBunIntent);
                         break;
 
                     case "Lily!":
                         ImageView myImage = new ImageView(view.getContext());
                         MainActivity.getmPlaceHolder().addView(myImage);
                         myImage.setImageResource(R.drawable.lily_thumb);
-                        myImage.setScaleX((float)0.2);
-                        myImage.setScaleY((float)0.2);
+                        myImage.setScaleX((float) 0.2);
+                        myImage.setScaleY((float) 0.2);
                         break;
 
-
                     case "Demotivate":
-
 
                         break;
                 }
             }
         });
-
-
     }
 
 
