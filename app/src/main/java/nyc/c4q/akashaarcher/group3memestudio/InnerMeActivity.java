@@ -12,8 +12,11 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ShareActionProvider;
 import android.util.Base64;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -39,8 +42,11 @@ public class InnerMeActivity extends AppCompatActivity {
     private static LinearLayout mPlaceHolder;
     private static LinearLayout mSecondImage;
     private static LinearLayout mInnerPhoto;
+    private static LinearLayout innerTextBack;
+    private static LinearLayout mPhotoBackground;
     private static EditText secondText;
     private static EditText firstText;
+    private ShareActionProvider mShareActionProvider;
     private Bundle mIntent;
     private static final String FIRST_IMAGE = "getFirstImage";
 
@@ -57,8 +63,11 @@ public class InnerMeActivity extends AppCompatActivity {
         mBitMapOne = MainActivity.getmBitmap();
         mPlaceHolder = (LinearLayout) findViewById(R.id.inner_image_two);
         mInnerPhoto = (LinearLayout) findViewById(R.id.inner_image_one);
+        mPhotoBackground = (LinearLayout)findViewById(R.id.inner_photo);
+        innerTextBack = (LinearLayout) findViewById(R.id.inner_text_bacnkground);
         secondText = (EditText) findViewById(R.id.second_pic_text);
         firstText = (EditText) findViewById(R.id.first_pic_text);
+
         Drawable d1 = new BitmapDrawable(getResources(), mBitMapOne);
         Log.d("Drawables", d1.toString());
 
@@ -98,6 +107,8 @@ public class InnerMeActivity extends AppCompatActivity {
                 mSecondImage.setBackground(d2);
                 firstText.setVisibility(View.VISIBLE);
                 secondText.setVisibility(View.VISIBLE);
+                innerTextBack.setBackgroundColor(Color.parseColor("white"));
+                innerTextBack.setVisibility(View.VISIBLE);
 
 
                 Log.d("Last one", "Success!");
@@ -124,10 +135,10 @@ public class InnerMeActivity extends AppCompatActivity {
                 break;
             case R.id.finished_btn:
 
-                mInnerPhoto.setDrawingCacheEnabled(true);
-                mInnerPhoto.buildDrawingCache(true);
+                mPhotoBackground.setDrawingCacheEnabled(true);
+                mPhotoBackground.buildDrawingCache(true);
 
-                Bitmap b = Bitmap.createBitmap(mInnerPhoto.getDrawingCache());
+                Bitmap b = Bitmap.createBitmap(mPhotoBackground.getDrawingCache());
                 MediaStore.Images.Media.insertImage(getContentResolver(), b, "", "");
                 break;
         }
@@ -144,7 +155,25 @@ public class InnerMeActivity extends AppCompatActivity {
         }
     }
 
-    public void addText(View view) {
-
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate menu resource file.
+//        getMenuInflater().inflate(R.menu.share_menu, menu);
+//
+//        // Locate MenuItem with ShareActionProvider
+//        MenuItem item = menu.findItem(R.id.menu_item_share);
+//
+//        // Fetch and store ShareActionProvider
+//        mShareActionProvider = (ShareActionProvider) item.getActionProvider();
+//
+//        // Return true to display menu
+//        return true;
+//    }
+//
+//    // Call to update the share intent
+//    private void setShareIntent(Intent shareIntent) {
+//        if (mShareActionProvider != null) {
+//            mShareActionProvider.setShareIntent(shareIntent);
+//        }
+//    }
 }

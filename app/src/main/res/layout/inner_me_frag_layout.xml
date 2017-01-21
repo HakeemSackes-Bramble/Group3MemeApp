@@ -34,6 +34,32 @@
         android:layout_height="300dp"
         android:layout_gravity="center"
         android:orientation="horizontal">
+        <LinearLayout
+            android:id="@+id/inner_text_bacnkground"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/first_pic_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Me: "
+            android:textStyle="bold"
+            android:visibility="invisible" />
+
+        <EditText
+            android:id="@+id/second_pic_text"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Inner Me: "
+            android:textStyle="bold"
+            android:visibility="invisible" />
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
 
 
         <LinearLayout
@@ -43,16 +69,6 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/first_pic_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Me"
-                android:textAlignment="center"
-                android:textColor="@color/textIcons"
-                android:textStyle="bold"
-                android:visibility="invisible" />
 
         </LinearLayout>
 
@@ -64,19 +80,12 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/second_pic_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Inner Me"
-                android:textAlignment="center"
-                android:textColor="@color/textIcons"
-                android:textStyle="bold"
-                android:visibility="invisible" />
+        </LinearLayout>
 
         </LinearLayout>
     </LinearLayout>
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
