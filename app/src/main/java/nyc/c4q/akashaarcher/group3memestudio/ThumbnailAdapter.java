@@ -3,10 +3,8 @@ package nyc.c4q.akashaarcher.group3memestudio;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.preference.PreferenceManager;
-import android.support.v4.app.FragmentManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
 import android.view.View;
@@ -50,7 +48,11 @@ public class ThumbnailAdapter extends RecyclerView.Adapter {
 
     }
 
-    private List<Thumbnails> thumbnails = Arrays.asList(
+    public static List<Thumbnails> getThumbnails() {
+        return thumbnails;
+    }
+
+    private static List<Thumbnails> thumbnails = Arrays.asList(
             new Thumbnails(R.drawable.demotivation_thumb, "Demotivate"),
             new Thumbnails(R.drawable.honey_bun_thumb, "Honey Bun"),
             new Thumbnails(R.drawable.inner_me_thumb, "Inner Me"),
@@ -79,7 +81,7 @@ public class ThumbnailAdapter extends RecyclerView.Adapter {
                     RecyclerView mRecViewTop = new RecyclerView(view.getContext());
                     RecyclerView mRecViewBottom = new RecyclerView(view.getContext());
                     mListener.addRecView(mRecViewTop);
-                    mListener.addRecView(mRecViewTop);
+                    mListener.addRecView(mRecViewBottom);
                     RelativeLayout.LayoutParams layoutParams1=new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
                             RelativeLayout.LayoutParams.WRAP_CONTENT);
                     layoutParams1.addRule(RelativeLayout.ALIGN_PARENT_TOP);

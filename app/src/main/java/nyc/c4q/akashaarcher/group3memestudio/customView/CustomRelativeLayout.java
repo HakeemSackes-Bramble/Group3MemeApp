@@ -12,7 +12,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.RelativeLayout;
 
-import nyc.c4q.akashaarcher.group3memestudio.model.ThumbnailAdapter;
+import nyc.c4q.akashaarcher.group3memestudio.ThumbnailAdapter;
 
 /**
  * Created by shawnspeaks on 1/16/17.

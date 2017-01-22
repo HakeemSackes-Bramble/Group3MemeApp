@@ -1,4 +1,4 @@
-package nyc.c4q.akashaarcher.group3memestudio.model;
+package nyc.c4q.akashaarcher.group3memestudio.Model;
 
 /**
  * Created by shawnspeaks on 1/17/17.

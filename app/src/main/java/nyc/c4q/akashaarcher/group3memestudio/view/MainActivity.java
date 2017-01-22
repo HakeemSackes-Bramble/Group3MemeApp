@@ -1,43 +1,36 @@
 package nyc.c4q.akashaarcher.group3memestudio.view;
 
 import android.Manifest;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Button;
-import android.widget.RelativeLayout;
 
-import java.io.FileInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Field;
+
 import nyc.c4q.akashaarcher.group3memestudio.R;
+import nyc.c4q.akashaarcher.group3memestudio.ThumbnailAdapter;
 import nyc.c4q.akashaarcher.group3memestudio.customView.ColorPicker;
-import nyc.c4q.akashaarcher.group3memestudio.model.ThumbnailAdapter;
 
 public class MainActivity extends AppCompatActivity implements ThumbnailAdapter.Listener {
 
@@ -60,17 +53,19 @@ public class MainActivity extends AppCompatActivity implements ThumbnailAdapter.
         setContentView(R.layout.activity_main);
         ActivityCompat.requestPermissions(MainActivity.this,
 
-        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},1);
+                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
         colorPicker = (ColorPicker) findViewById(R.id.tempLayout);
-         colorPicker.setVisibility(View.INVISIBLE);
+        colorPicker.setVisibility(View.INVISIBLE);
         recyclerView = (RecyclerView) findViewById(R.id.thumbnail_rv);
-        mPhotoLayout = (RelativeLayout) findViewById(R.id.placeholder);
-        mPlaceHolder=(RelativeLayout) findViewById(R.id.placeholder);
-        layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+        //mPhotoLayout = (RelativeLayout) findViewById(R.id.placeholder);
+        mPlaceHolder = (RelativeLayout) findViewById(R.id.placeholder);
+        layoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(new ThumbnailAdapter(recyclerView.getWidth(), this));
 
 
     }
+
     public void placeInnerPhoto() {
         Drawable d23 = new BitmapDrawable(getResources(), mBitmap);
         mPlaceHolder.setBackground(d23);
@@ -93,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements ThumbnailAdapter.
 //                Bitmap b = Bitmap.createBitmap(mPlaceHolder.getDrawingCache());
 
 
-                MediaStore.Images.Media.insertImage(getContentResolver(), getBitmapFromView(mPlaceHolder), "" , "");
+                MediaStore.Images.Media.insertImage(getContentResolver(), getBitmapFromView(mPlaceHolder), "", "");
                 break;
 
             case R.id.share_btn:
@@ -108,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements ThumbnailAdapter.
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
                 String path = MediaStore.Images.Media.insertImage(getContentResolver(),
                         bitmap, "Title", null);
-                Uri imageUri =  Uri.parse(path);
+                Uri imageUri = Uri.parse(path);
                 shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
                 shareIntent.setType("image/jpeg");
                 startActivity(Intent.createChooser(shareIntent, "Share image using"));
@@ -121,7 +116,8 @@ public class MainActivity extends AppCompatActivity implements ThumbnailAdapter.
     @Override
     protected void onStart() {
         super.onStart();
-        recyclerView.setAdapter(new ThumbnailAdapter(recyclerView.getWidth(),this));
+
+
     }
 
     @Override
@@ -132,11 +128,13 @@ public class MainActivity extends AppCompatActivity implements ThumbnailAdapter.
 
             Uri uri = data.getData();
 
-                    try {
-                        mBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+            try {
+                mBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
 
-                        Drawable d = new BitmapDrawable(getResources(), mBitmap);
-                        mPlaceHolder.setBackground(d);
+                Drawable d = new BitmapDrawable(getResources(), mBitmap);
+
+                mPlaceHolder.setBackground(d);
+                mPlaceHolder.removeAllViews();
 //                      ImageView imageView = (ImageView) findViewById(R.id.placeholder);
 //                      imageView.setImageBitmap(mBitmap);
 
@@ -144,11 +142,9 @@ public class MainActivity extends AppCompatActivity implements ThumbnailAdapter.
                 e.printStackTrace();
             }
         }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
+    }
+
+
 
 
     @Override
@@ -172,9 +168,9 @@ public class MainActivity extends AppCompatActivity implements ThumbnailAdapter.
         textView.setLayoutParams(layoutParams1);
         mPlaceHolder.addView(textView);
 
-        textView.setTextColor(Color.parseColor("white"));
+        textView.setTextColor(Color.parseColor("black"));
         textView.setTextSize(30);
-        textView.getBackground().setColorFilter(Color.parseColor("black"), PorterDuff.Mode.SRC_IN);
+        textView.getBackground().setColorFilter(Color.parseColor("white"), PorterDuff.Mode.SRC_IN);
         try {
             Field f = TextView.class.getDeclaredField("mCursorDrawableRes");
             f.setAccessible(true);
@@ -190,19 +186,17 @@ public class MainActivity extends AppCompatActivity implements ThumbnailAdapter.
         mPlaceHolder.addView(picture);
 
         picture.setImageDrawable(d);
-        mPlaceHolder.setBackgroundColor(Color.parseColor("black"));
-
-
-
+        mPlaceHolder.setBackgroundColor(Color.parseColor("white"));
 
     }
 
     @Override
     public void addRecView(RecyclerView recyclerView) {
-
         mPlaceHolder.addView(recyclerView);
 
     }
+
+
 
 
     public static RelativeLayout getmPlaceHolder() {
@@ -226,28 +220,6 @@ public class MainActivity extends AppCompatActivity implements ThumbnailAdapter.
         return returnedBitmap;
     }
 
-    public void insertFragment(){
-       android.app.FragmentManager fm = getFragmentManager();
-       FragmentTransaction ft = fm.beginTransaction();
-       Fragment frag = new ColorPickerFragment();
-
-       ft.replace(R.id.tempLayout, frag).commit();
-
-   }
-
-
-    public void showOrNotshowFragment(int booleanInt){
-        FragmentManager fm = getFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        Fragment frag = new ColorPickerFragment();
-
-        if(booleanInt > 0){
-            ft.add(R.id.tempLayout, frag);
-        }else
-            ft.hide(frag);
-
-        ft.commit();
-    }
 
     public static Bitmap getmBitmap() {
         return mBitmap;
