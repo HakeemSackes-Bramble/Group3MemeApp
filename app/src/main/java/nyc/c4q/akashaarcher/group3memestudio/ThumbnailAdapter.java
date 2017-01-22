@@ -3,7 +3,6 @@ package nyc.c4q.akashaarcher.group3memestudio;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.widget.LinearLayoutManager;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.preference.PreferenceManager;
@@ -115,8 +114,10 @@ public class ThumbnailAdapter extends RecyclerView.Adapter {
                         break;
                 }
             }
-        });
     }
+
+    );
+}
 
 
     @Override

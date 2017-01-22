@@ -1,6 +1,9 @@
-package nyc.c4q.akashaarcher.group3memestudio;
+package nyc.c4q.akashaarcher.group3memestudio.view;
 
 import android.Manifest;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -26,12 +29,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Button;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import java.io.FileInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import nyc.c4q.akashaarcher.group3memestudio.R;
+import nyc.c4q.akashaarcher.group3memestudio.customView.ColorPicker;
+import nyc.c4q.akashaarcher.group3memestudio.model.ThumbnailAdapter;
 
 public class MainActivity extends AppCompatActivity implements ThumbnailAdapter.Listener {
 
@@ -41,18 +47,25 @@ public class MainActivity extends AppCompatActivity implements ThumbnailAdapter.
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private int PICK_IMAGE_REQUEST = 1;
-    private Bitmap mBitmap;
-    private  RelativeLayout mPlaceHolder;
-
+    public static ColorPicker colorPicker;
+    private static Bitmap mBitmap;
+    private Button button;
+    private static RelativeLayout mPlaceHolder;
+    private static RelativeLayout mPhotoLayout;
+    Bitmap bmp = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ActivityCompat.requestPermissions(MainActivity.this,
-                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},1);
-        mPlaceHolder=(RelativeLayout) findViewById(R.id.placeholder);
+
+        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},1);
+        colorPicker = (ColorPicker) findViewById(R.id.tempLayout);
+         colorPicker.setVisibility(View.INVISIBLE);
         recyclerView = (RecyclerView) findViewById(R.id.thumbnail_rv);
+        mPhotoLayout = (RelativeLayout) findViewById(R.id.placeholder);
+        mPlaceHolder=(RelativeLayout) findViewById(R.id.placeholder);
         layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
@@ -63,16 +76,15 @@ public class MainActivity extends AppCompatActivity implements ThumbnailAdapter.
         mPlaceHolder.setBackground(d23);
     }
 
-    public void selectSaveFromGallery(View view){
+    public void selectSaveFromGallery(View view) {
 
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.gallery_btn:
-            Intent intent = new Intent();
-            intent.setType("image/*");
-            intent.setAction(Intent.ACTION_GET_CONTENT);
-            startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
-            break;
-
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+                break;
             case R.id.finished_btn:
 
 //                mPlaceHolder.setDrawingCacheEnabled(true);
@@ -104,7 +116,6 @@ public class MainActivity extends AppCompatActivity implements ThumbnailAdapter.
 
                 break;
         }
-
     }
 
     @Override
@@ -113,21 +124,26 @@ public class MainActivity extends AppCompatActivity implements ThumbnailAdapter.
         recyclerView.setAdapter(new ThumbnailAdapter(recyclerView.getWidth(),this));
     }
 
-            @Override
-            protected void onActivityResult ( int requestCode, int resultCode, Intent data){
-                super.onActivityResult(requestCode, resultCode, data);
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
-                if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
 
-                    Uri uri = data.getData();
+            Uri uri = data.getData();
 
                     try {
                         mBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
 
-
                         Drawable d = new BitmapDrawable(getResources(), mBitmap);
                         mPlaceHolder.setBackground(d);
+//                      ImageView imageView = (ImageView) findViewById(R.id.placeholder);
+//                      imageView.setImageBitmap(mBitmap);
 
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -189,6 +205,15 @@ public class MainActivity extends AppCompatActivity implements ThumbnailAdapter.
     }
 
 
+    public static RelativeLayout getmPlaceHolder() {
+        return mPlaceHolder;
+    }
+
+    public static ColorPicker getColorPicker() {
+        return colorPicker;
+    }
+
+
     public static Bitmap getBitmapFromView(View view) {
         Bitmap returnedBitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(),Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(returnedBitmap);
@@ -199,6 +224,29 @@ public class MainActivity extends AppCompatActivity implements ThumbnailAdapter.
             canvas.drawColor(Color.WHITE);
         view.draw(canvas);
         return returnedBitmap;
+    }
+
+    public void insertFragment(){
+       android.app.FragmentManager fm = getFragmentManager();
+       FragmentTransaction ft = fm.beginTransaction();
+       Fragment frag = new ColorPickerFragment();
+
+       ft.replace(R.id.tempLayout, frag).commit();
+
+   }
+
+
+    public void showOrNotshowFragment(int booleanInt){
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        Fragment frag = new ColorPickerFragment();
+
+        if(booleanInt > 0){
+            ft.add(R.id.tempLayout, frag);
+        }else
+            ft.hide(frag);
+
+        ft.commit();
     }
 
     public static Bitmap getmBitmap() {
