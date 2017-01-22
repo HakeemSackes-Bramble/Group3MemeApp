@@ -1,4 +1,4 @@
-package nyc.c4q.akashaarcher.group3memestudio.model;
+package nyc.c4q.akashaarcher.group3memestudio.Model;
 
 import android.support.annotation.DrawableRes;
 
@@ -7,8 +7,10 @@ import android.support.annotation.DrawableRes;
  */
 
 public class Thumbnails {
+
     private Integer image;
     private String title;
+    private int isActiveFilter = -1;
 
     public Thumbnails(@DrawableRes Integer resource, String title) {
         this.image = resource;
@@ -29,5 +31,13 @@ public class Thumbnails {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public int getIsActiveFilter() {
+        return isActiveFilter;
+    }
+
+    public void setIsActiveFilter(int isActiveFilter) {
+        this.isActiveFilter = isActiveFilter;
     }
 }
