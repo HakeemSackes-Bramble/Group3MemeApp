@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements ThumbnailAdapter.
         mPlaceHolder = (RelativeLayout) findViewById(R.id.placeholder);
         layoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(new ThumbnailAdapter(mPlaceHolder.getWidth(), this));
+        //recyclerView.setAdapter(new ThumbnailAdapter(mPlaceHolder.getWidth(), this));
 
 
 
@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements ThumbnailAdapter.
     protected void onStart() {
         super.onStart();
 
-        //recyclerView.setAdapter(new ThumbnailAdapter(mPlaceHolder.getWidth(), this));
+        recyclerView.setAdapter(new ThumbnailAdapter(mPlaceHolder.getWidth(), this));
 
     }
 

@@ -59,9 +59,7 @@ public class ThumbnailViewHolder extends RecyclerView.ViewHolder implements Item
                 .load(resource)
                 .resize(125, 125)
                 .into(memePic);
-        if (resource != null) {
-            memePic.setImageResource(resource);
-        }
+
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
