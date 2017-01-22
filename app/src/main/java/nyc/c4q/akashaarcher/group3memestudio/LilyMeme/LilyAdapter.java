@@ -38,6 +38,6 @@ public class LilyAdapter  extends RecyclerView.Adapter {
     @Override
     public int getItemCount() {
 
-        return mWidth/150;
+        return mWidth/130;
     }
 }

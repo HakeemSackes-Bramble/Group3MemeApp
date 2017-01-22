@@ -26,6 +26,7 @@ import nyc.c4q.akashaarcher.group3memestudio.Model.Thumbnails;
 public class ThumbnailAdapter extends RecyclerView.Adapter {
 
     private int mWidth;
+    private int mHigth;
 
     private Listener mListener;
 
@@ -41,9 +42,18 @@ public class ThumbnailAdapter extends RecyclerView.Adapter {
 
     Context context;
 
-    public ThumbnailAdapter(int width, Listener listener){
+    public ThumbnailAdapter(int width, int hight, Listener listener){
 
-        this.mWidth=width;
+        if(mHigth>mWidth){
+            this.mWidth=hight;
+
+        }else {
+            this.mWidth=width;
+
+        }
+
+
+
         this.mListener=listener;
 
     }

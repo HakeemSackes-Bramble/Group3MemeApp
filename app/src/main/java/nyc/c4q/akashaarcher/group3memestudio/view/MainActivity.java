@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements ThumbnailAdapter.
     protected void onStart() {
         super.onStart();
 
-        recyclerView.setAdapter(new ThumbnailAdapter(mPlaceHolder.getWidth(), this));
+        recyclerView.setAdapter(new ThumbnailAdapter(mPlaceHolder.getWidth(),mPlaceHolder.getHeight(), this));
 
     }
 
