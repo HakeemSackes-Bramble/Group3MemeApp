@@ -3,10 +3,7 @@ package nyc.c4q.akashaarcher.group3memestudio;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.preference.PreferenceManager;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
 import android.view.View;
@@ -18,6 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import nyc.c4q.akashaarcher.group3memestudio.model.Thumbnails;
+import nyc.c4q.akashaarcher.group3memestudio.view.MainActivity;
 
 /**
  * Created by akashaarcher on 1/9/17.
@@ -83,8 +81,7 @@ public class ThumbnailAdapter extends RecyclerView.Adapter {
                         break;
                 }
             }
-    }
-
+        }
     );
 }
 

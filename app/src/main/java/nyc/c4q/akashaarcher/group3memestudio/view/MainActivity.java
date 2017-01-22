@@ -7,32 +7,25 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
-<<<<<<< HEAD:app/src/main/java/nyc/c4q/akashaarcher/group3memestudio/view/MainActivity.java
-import android.widget.RelativeLayout;
-=======
 import android.widget.Button;
-import android.widget.LinearLayout;
->>>>>>> 5dddd6fa446b3ad6dddbb66e8a8c398546633cae:app/src/main/java/nyc/c4q/akashaarcher/group3memestudio/MainActivity.java
+import android.widget.RelativeLayout;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 
 import nyc.c4q.akashaarcher.group3memestudio.R;
 import nyc.c4q.akashaarcher.group3memestudio.customView.ColorPicker;
 import nyc.c4q.akashaarcher.group3memestudio.model.ThumbnailAdapter;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,44 +35,28 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private int PICK_IMAGE_REQUEST = 1;
-<<<<<<< HEAD:app/src/main/java/nyc/c4q/akashaarcher/group3memestudio/view/MainActivity.java
-    private Bitmap mBitmap;
-    private static RelativeLayout mPlaceHolder;
     public static ColorPicker colorPicker;
-
-=======
     private static Bitmap mBitmap;
     private Button button;
-    private static LinearLayout mPlaceHolder;
-    private static LinearLayout mPhotoLayout;
+    private static RelativeLayout mPlaceHolder;
+    private static RelativeLayout mPhotoLayout;
     Bitmap bmp = null;
-    // private ThumbnailAdapter adapter;
->>>>>>> 5dddd6fa446b3ad6dddbb66e8a8c398546633cae:app/src/main/java/nyc/c4q/akashaarcher/group3memestudio/MainActivity.java
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ActivityCompat.requestPermissions(MainActivity.this,
-<<<<<<< HEAD:app/src/main/java/nyc/c4q/akashaarcher/group3memestudio/view/MainActivity.java
-        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},1);
-=======
-                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
->>>>>>> 5dddd6fa446b3ad6dddbb66e8a8c398546633cae:app/src/main/java/nyc/c4q/akashaarcher/group3memestudio/MainActivity.java
 
+        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},1);
         colorPicker = (ColorPicker) findViewById(R.id.tempLayout);
          colorPicker.setVisibility(View.INVISIBLE);
         recyclerView = (RecyclerView) findViewById(R.id.thumbnail_rv);
-        mPhotoLayout = (LinearLayout) findViewById(R.id.placeholder);
+        mPhotoLayout = (RelativeLayout) findViewById(R.id.placeholder);
         layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(new ThumbnailAdapter());
-<<<<<<< HEAD:app/src/main/java/nyc/c4q/akashaarcher/group3memestudio/view/MainActivity.java
 //        insertFragment();
-=======
-
-
->>>>>>> 5dddd6fa446b3ad6dddbb66e8a8c398546633cae:app/src/main/java/nyc/c4q/akashaarcher/group3memestudio/MainActivity.java
     }
 
     public void placeInnerPhoto() {
@@ -119,40 +96,24 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-<<<<<<< HEAD:app/src/main/java/nyc/c4q/akashaarcher/group3memestudio/view/MainActivity.java
-            @Override
-            protected void onActivityResult (int requestCode, int resultCode, Intent data){
-                super.onActivityResult(requestCode, resultCode, data);
-=======
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
->>>>>>> 5dddd6fa446b3ad6dddbb66e8a8c398546633cae:app/src/main/java/nyc/c4q/akashaarcher/group3memestudio/MainActivity.java
 
             Uri uri = data.getData();
 
-            try {
-                mBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-
-<<<<<<< HEAD:app/src/main/java/nyc/c4q/akashaarcher/group3memestudio/view/MainActivity.java
                     try {
                         mBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                         mPlaceHolder = (RelativeLayout) findViewById(R.id.placeholder);
                         Drawable d = new BitmapDrawable(getResources(), mBitmap);
                         mPlaceHolder.setBackground(d);
-=======
-//                        ImageView imageView = (ImageView) findViewById(R.id.placeholder);
-//                        imageView.setImageBitmap(mBitmap);
-                mPlaceHolder = (LinearLayout) findViewById(R.id.placeholder);
-                Drawable d = new BitmapDrawable(getResources(), mBitmap);
-                mPlaceHolder.setBackground(d);
+//                      ImageView imageView = (ImageView) findViewById(R.id.placeholder);
+//                      imageView.setImageBitmap(mBitmap);
 
             } catch (IOException e) {
                 e.printStackTrace();
->>>>>>> 5dddd6fa446b3ad6dddbb66e8a8c398546633cae:app/src/main/java/nyc/c4q/akashaarcher/group3memestudio/MainActivity.java
-
             }
         }
     }
@@ -162,14 +123,13 @@ public class MainActivity extends AppCompatActivity {
         return mPlaceHolder;
     }
 
-<<<<<<< HEAD:app/src/main/java/nyc/c4q/akashaarcher/group3memestudio/view/MainActivity.java
     public static ColorPicker getColorPicker() {
         return colorPicker;
     }
 
 
     public void insertFragment(){
-       FragmentManager fm = getFragmentManager();
+       android.app.FragmentManager fm = getFragmentManager();
        FragmentTransaction ft = fm.beginTransaction();
        Fragment frag = new ColorPickerFragment();
 
@@ -191,8 +151,6 @@ public class MainActivity extends AppCompatActivity {
         ft.commit();
     }
 
-
-=======
     public static Bitmap getmBitmap() {
         return mBitmap;
     }
@@ -200,6 +158,5 @@ public class MainActivity extends AppCompatActivity {
     public static void setmBitmap(Bitmap mBitmap) {
         MainActivity.mBitmap = mBitmap;
     }
->>>>>>> 5dddd6fa446b3ad6dddbb66e8a8c398546633cae:app/src/main/java/nyc/c4q/akashaarcher/group3memestudio/MainActivity.java
 }
 

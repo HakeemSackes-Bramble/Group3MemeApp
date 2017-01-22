@@ -45,6 +45,4 @@ public class ThumbnailAdapter extends RecyclerView.Adapter {
         return thumbnails;
     }
 
-
-
 }
