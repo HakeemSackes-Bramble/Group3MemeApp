@@ -7,22 +7,28 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Button;
+import android.widget.LinearLayout;
 
+import java.io.FileInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -30,6 +36,7 @@ import java.lang.reflect.Field;
 public class MainActivity extends AppCompatActivity implements ThumbnailAdapter.Listener {
 
 
+    private static final String FIRST_IMAGE = "passImage";
     private Context mContext;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
@@ -46,10 +53,14 @@ public class MainActivity extends AppCompatActivity implements ThumbnailAdapter.
                 new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},1);
         mPlaceHolder=(RelativeLayout) findViewById(R.id.placeholder);
         recyclerView = (RecyclerView) findViewById(R.id.thumbnail_rv);
-        layoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false);
+        layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
 
+    }
+    public void placeInnerPhoto() {
+        Drawable d23 = new BitmapDrawable(getResources(), mBitmap);
+        mPlaceHolder.setBackground(d23);
     }
 
     public void selectSaveFromGallery(View view){
@@ -188,6 +199,14 @@ public class MainActivity extends AppCompatActivity implements ThumbnailAdapter.
             canvas.drawColor(Color.WHITE);
         view.draw(canvas);
         return returnedBitmap;
+    }
+
+    public static Bitmap getmBitmap() {
+        return mBitmap;
+    }
+
+    public static void setmBitmap(Bitmap mBitmap) {
+        MainActivity.mBitmap = mBitmap;
     }
 }
 
