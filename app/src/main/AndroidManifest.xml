@@ -23,7 +23,6 @@
 
         </activity>
         <activity android:name=".InnerMeActivity"></activity>
-        <activity android:name=".HoneyBunActivity"></activity>
     </application>
 
 </manifest>

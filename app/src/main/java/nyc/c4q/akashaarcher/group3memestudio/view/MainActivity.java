@@ -143,11 +143,12 @@ public class MainActivity extends AppCompatActivity implements ThumbnailAdapter.
 
     @Override
     public void addHoneyBun() {
-        mPlaceHolder.setDrawingCacheEnabled(true);
-        mPlaceHolder.buildDrawingCache(true);
-
-        Bitmap b = Bitmap.createBitmap(mPlaceHolder.getDrawingCache());
-        Drawable d = new BitmapDrawable(getResources(), b);
+//        mPlaceHolder.setDrawingCacheEnabled(true);
+//        mPlaceHolder.buildDrawingCache(true);
+//
+//        Bitmap b = Bitmap.createBitmap(mPlaceHolder.getDrawingCache());
+//        Drawable d = new BitmapDrawable(getResources(), b);
+        mPlaceHolder.setBackgroundColor(Color.parseColor("white"));
 
         ImageView picture = new ImageView(this);
         EditText textView = new EditText(this);
@@ -172,13 +173,14 @@ public class MainActivity extends AppCompatActivity implements ThumbnailAdapter.
         }
 
         textView.setHint("Please type your text here");
+        textView.setHintTextColor(0x696969);
         RelativeLayout.LayoutParams layoutParams=new RelativeLayout.LayoutParams(mPlaceHolder.getWidth()*2,
                 mPlaceHolder.getHeight()-300);
         layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         picture.setLayoutParams(layoutParams);
         mPlaceHolder.addView(picture);
 
-        picture.setImageDrawable(d);
+        picture.setImageResource(R.drawable.honey_bun_thumb);
         mPlaceHolder.setBackgroundColor(Color.parseColor("white"));
 
     }
