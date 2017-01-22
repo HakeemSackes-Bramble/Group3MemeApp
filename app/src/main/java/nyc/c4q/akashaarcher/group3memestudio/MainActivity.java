@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -14,9 +15,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,7 +32,10 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     private int PICK_IMAGE_REQUEST = 1;
     private static Bitmap mBitmap;
+    private Button button;
     private static LinearLayout mPlaceHolder;
+    private static LinearLayout mPhotoLayout;
+    Bitmap bmp = null;
     // private ThumbnailAdapter adapter;
 
     @Override
@@ -39,10 +46,18 @@ public class MainActivity extends AppCompatActivity {
                 new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
 
         recyclerView = (RecyclerView) findViewById(R.id.thumbnail_rv);
+        button = (Button) findViewById(R.id.main_btn);
+        mPhotoLayout = (LinearLayout) findViewById(R.id.placeholder);
         layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(new ThumbnailAdapter());
 
+
+    }
+
+    public void placeInnerPhoto() {
+        Drawable d23 = new BitmapDrawable(getResources(), mBitmap);
+        mPlaceHolder.setBackground(d23);
     }
 
     public void selectSaveFromGallery(View view) {

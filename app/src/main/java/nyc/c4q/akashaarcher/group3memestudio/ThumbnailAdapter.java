@@ -1,5 +1,6 @@
 package nyc.c4q.akashaarcher.group3memestudio;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -46,6 +47,7 @@ public class ThumbnailAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         ThumbnailViewHolder viewHolder = (ThumbnailViewHolder) holder;
+        final Context  context = holder.itemView.getContext();
         final Thumbnails thumbnail = thumbnails.get(position);
         viewHolder.bind(thumbnail);
         viewHolder.getMemePic().setOnClickListener(new View.OnClickListener() {
@@ -66,8 +68,9 @@ public class ThumbnailAdapter extends RecyclerView.Adapter {
 
                     break;
                 case "Inner Me":
-                     innerIntent = new Intent(view.getContext(), InnerMeActivity.class);
-                    view.getContext().startActivity(innerIntent);
+                    innerIntent = new Intent(context, InnerMeActivity.class);
+                    ((Activity)context).startActivityForResult(innerIntent, 6);
+
             }
             }
         });

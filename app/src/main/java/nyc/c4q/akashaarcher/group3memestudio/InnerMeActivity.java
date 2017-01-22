@@ -1,5 +1,6 @@
 package nyc.c4q.akashaarcher.group3memestudio;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -24,6 +25,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
@@ -39,6 +42,7 @@ public class InnerMeActivity extends AppCompatActivity {
     Button saveNewPhoto;
     private Bitmap mBitmapTwo;
     private Bitmap mBitMapOne;
+    private static Bitmap mInnerBitmap;
     private static LinearLayout mPlaceHolder;
     private static LinearLayout mSecondImage;
     private static LinearLayout mInnerPhoto;
@@ -63,7 +67,7 @@ public class InnerMeActivity extends AppCompatActivity {
         mBitMapOne = MainActivity.getmBitmap();
         mPlaceHolder = (LinearLayout) findViewById(R.id.inner_image_two);
         mInnerPhoto = (LinearLayout) findViewById(R.id.inner_image_one);
-        mPhotoBackground = (LinearLayout)findViewById(R.id.inner_photo);
+        mPhotoBackground = (LinearLayout) findViewById(R.id.inner_photo);
         innerTextBack = (LinearLayout) findViewById(R.id.inner_text_bacnkground);
         secondText = (EditText) findViewById(R.id.second_pic_text);
         firstText = (EditText) findViewById(R.id.first_pic_text);
@@ -117,6 +121,7 @@ public class InnerMeActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+
     }
 
     public static LinearLayout getmPlaceHolder() {
@@ -139,9 +144,40 @@ public class InnerMeActivity extends AppCompatActivity {
                 mPhotoBackground.buildDrawingCache(true);
 
                 Bitmap b = Bitmap.createBitmap(mPhotoBackground.getDrawingCache());
+                Log.d("Bitmap created: ", b.toString());
+
+
+//                Intent in1 = new Intent(this, MainActivity.class);
+//                in1.putExtra("image", b);
+//                setResult(6,in1);
+//                finish();
+
+//                try {
+//                    //Write file
+//                    String filename = "bitmap.png";
+//                    FileOutputStream stream = this.openFileOutput(filename, Context.MODE_PRIVATE);
+//                    b.compress(Bitmap.CompressFormat.PNG, 100, stream);
+//
+//                    //Cleanup
+//                    stream.close();
+//                    b.recycle();
+//
+//                    //Pop intent
+//                    Intent in1 = new Intent(this, MainActivity.class);
+//                    in1.putExtra("image", b);
+//                    finish();
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+
+
                 MediaStore.Images.Media.insertImage(getContentResolver(), b, "", "");
                 break;
         }
+    }
+
+    public static Bitmap getmBitmap() {
+        return mInnerBitmap;
     }
 
     public Bitmap StringToBitMap(String encodedString) {
