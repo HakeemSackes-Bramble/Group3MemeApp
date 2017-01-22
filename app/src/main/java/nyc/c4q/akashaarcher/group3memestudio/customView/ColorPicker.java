@@ -29,7 +29,6 @@ import javax.xml.parsers.ParserConfigurationException;
  */
 
 public class ColorPicker extends View {
-    private static final String TAG = "DEBUG TOOL";
     /**
      * Customizable display parameters (in percents)
      */
@@ -64,21 +63,17 @@ public class ColorPicker extends View {
      */
     private float[] colorHSV = new float[]{0f, 0f, 1f};
 
-    private Context context;
 
     public ColorPicker(Context context, AttributeSet attrs, int defStyle) throws ParserConfigurationException {
         super(context, attrs, defStyle);
-        this.context = context;
         init();
     }
     public ColorPicker(Context context, AttributeSet attrs) throws ParserConfigurationException {
         super(context, attrs);
-        this.context = context;
         init();
     }
     public ColorPicker(Context context) throws ParserConfigurationException {
         super(context);
-        this.context = context;
         init();
     }
     private void init() {
@@ -268,7 +263,7 @@ public class ColorPicker extends View {
     }
 
     public void updatePaintColor(int color) {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         SharedPreferences.Editor editor = preferences.edit();
         editor.putInt("newColor", color);
         editor.apply();

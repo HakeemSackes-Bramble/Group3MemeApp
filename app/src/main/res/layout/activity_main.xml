@@ -5,40 +5,42 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/textIcons"
-    tools:context="nyc.c4q.akashaarcher.group3memestudio.MainActivity">
+    tools:context="nyc.c4q.akashaarcher.group3memestudio.view.MainActivity">
 
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/thumbnail_rv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
 
-    <Button
-        android:id="@+id/gallery_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/thumbnail_rv"
-        android:gravity="center"
-        android:text="SELECT FROM GALLERY"
-        android:onClick="selectSaveFromGallery"/>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/thumbnail_rv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
-    <!--<ImageView-->
-    <!--android:id="@+id/gallery_btn"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:src="@drawable/open_gallery"-->
-    <!--android:gravity="center"-->
-    <!--android:layout_below="@id/thumbnail_rv"-->
-    <!--/>-->
 
-    <nyc.c4q.akashaarcher.group3memestudio.customView.CustomLinearLayout
+            <nyc.c4q.akashaarcher.group3memestudio.customView.ColorPicker
+                android:id="@+id/tempLayout"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:orientation="horizontal">
+            </nyc.c4q.akashaarcher.group3memestudio.customView.ColorPicker>
+
+            <Button
+                android:id="@+id/gallery_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/thumbnail_rv"
+                android:gravity="center"
+                android:layout_alignParentRight="true"
+                android:text="SELECT FROM GALLERY"
+                android:onClick="selectSaveFromGallery"/>
+
+
+    <nyc.c4q.akashaarcher.group3memestudio.customView.CustomRelativeLayout
         android:id="@+id/placeholder"
         android:layout_width="match_parent"
         android:layout_height="375dp"
         android:layout_below="@+id/gallery_btn"
         android:background="@drawable/placeholder"
         android:orientation="vertical">
-    </nyc.c4q.akashaarcher.group3memestudio.customView.CustomLinearLayout>
+    </nyc.c4q.akashaarcher.group3memestudio.customView.CustomRelativeLayout>
 
 
     <ImageView

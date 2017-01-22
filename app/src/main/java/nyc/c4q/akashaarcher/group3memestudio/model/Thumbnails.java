@@ -7,8 +7,10 @@ import android.support.annotation.DrawableRes;
  */
 
 public class Thumbnails {
+
     private Integer image;
     private String title;
+    private int isActiveFilter = -1;
 
     public Thumbnails(@DrawableRes Integer resource, String title) {
         this.image = resource;
@@ -31,4 +33,11 @@ public class Thumbnails {
         this.title = title;
     }
 
+    public int getIsActiveFilter() {
+        return isActiveFilter;
+    }
+
+    public void setIsActiveFilter(int isActiveFilter) {
+        this.isActiveFilter = isActiveFilter;
+    }
 }

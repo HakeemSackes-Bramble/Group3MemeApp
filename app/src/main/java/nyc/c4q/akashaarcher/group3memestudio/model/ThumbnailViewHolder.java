@@ -1,18 +1,17 @@
-package nyc.c4q.akashaarcher.group3memestudio;
+package nyc.c4q.akashaarcher.group3memestudio.model;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
-import nyc.c4q.akashaarcher.group3memestudio.model.Thumbnails;
+import nyc.c4q.akashaarcher.group3memestudio.R;
+import nyc.c4q.akashaarcher.group3memestudio.view.MainActivity;
 
 /**
  * Created by akashaarcher on 1/9/17.
@@ -72,42 +71,33 @@ public class ThumbnailViewHolder extends RecyclerView.ViewHolder implements Item
 
     @Override
     public void onItemSelected(Thumbnails thumbnail) {
-        Toast.makeText(context, thumbnail.getTitle(), Toast.LENGTH_SHORT).show();
 
         switch (thumbnail.getTitle()){
             case "Demotivate":
-                //Demotivate logic
-                Log.d(TAG, thumbnail.getTitle());
                 break;
             case "Honey Bun":
-                //Honey bun logic
-                Log.d(TAG, thumbnail.getTitle());
                 break;
             case "Inner Me":
-                Log.d(TAG, thumbnail.getTitle());
                 break;
             case "Painting":
-                Log.d(TAG, thumbnail.getTitle());
+                thumbnail.setIsActiveFilter(thumbnail.getIsActiveFilter()*-1);
+                if(thumbnail.getIsActiveFilter() > 0) {
+                    MainActivity.getColorPicker().setVisibility(View.VISIBLE);
+                }else {
+                    MainActivity.getColorPicker().setVisibility(View.INVISIBLE);
+                }
                 break;
-
             case "Lily!":
-                Log.d(TAG, thumbnail.getTitle());
                 ImageView myImage = new ImageView(view.getContext());
                 MainActivity.getmPlaceHolder().addView(myImage);
                 myImage.setImageResource(R.drawable.lily_thumb);
                 myImage.setScaleX((float)0.2);
                 myImage.setScaleY((float)0.2);
-                // Lily logic here
                 break;
         }
     }
 
 
 
-    /*
-     /*
-    Picasso.with(context).load(R.drawable.drawableName).into(imageView);
-
-     */
 
 }

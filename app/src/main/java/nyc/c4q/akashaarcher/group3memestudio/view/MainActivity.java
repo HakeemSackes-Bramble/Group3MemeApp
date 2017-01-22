@@ -1,6 +1,9 @@
-package nyc.c4q.akashaarcher.group3memestudio;
+package nyc.c4q.akashaarcher.group3memestudio.view;
 
 import android.Manifest;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -14,9 +17,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import java.io.IOException;
+
+import nyc.c4q.akashaarcher.group3memestudio.R;
+import nyc.c4q.akashaarcher.group3memestudio.customView.ColorPicker;
+import nyc.c4q.akashaarcher.group3memestudio.model.ThumbnailAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,20 +33,24 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     private int PICK_IMAGE_REQUEST = 1;
     private Bitmap mBitmap;
-    private static LinearLayout mPlaceHolder;
-   // private ThumbnailAdapter adapter;
+    private static RelativeLayout mPlaceHolder;
+    public static ColorPicker colorPicker;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ActivityCompat.requestPermissions(MainActivity.this,
-                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},1);
+        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},1);
 
+        colorPicker = (ColorPicker) findViewById(R.id.tempLayout);
+         colorPicker.setVisibility(View.INVISIBLE);
         recyclerView = (RecyclerView) findViewById(R.id.thumbnail_rv);
         layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(new ThumbnailAdapter());
+//        insertFragment();
     }
 
     public void selectSaveFromGallery(View view){
@@ -59,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
             MediaStore.Images.Media.insertImage(getContentResolver(), b, "" , "");
             break;
         }
-
     }
 
             @Override
@@ -72,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
 
                     try {
                         mBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-                        mPlaceHolder = (LinearLayout) findViewById(R.id.placeholder);
+                        mPlaceHolder = (RelativeLayout) findViewById(R.id.placeholder);
                         Drawable d = new BitmapDrawable(getResources(), mBitmap);
                         mPlaceHolder.setBackground(d);
 
@@ -82,8 +92,38 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
-    public static LinearLayout getmPlaceHolder() {
+    public static RelativeLayout getmPlaceHolder() {
         return mPlaceHolder;
     }
+
+    public static ColorPicker getColorPicker() {
+        return colorPicker;
+    }
+
+
+    public void insertFragment(){
+       FragmentManager fm = getFragmentManager();
+       FragmentTransaction ft = fm.beginTransaction();
+       Fragment frag = new ColorPickerFragment();
+
+       ft.replace(R.id.tempLayout, frag).commit();
+
+   }
+
+
+    public void showOrNotshowFragment(int booleanInt){
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        Fragment frag = new ColorPickerFragment();
+
+        if(booleanInt > 0){
+            ft.add(R.id.tempLayout, frag);
+        }else
+            ft.hide(frag);
+
+        ft.commit();
+    }
+
+
 }
 

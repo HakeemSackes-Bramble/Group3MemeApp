@@ -4,27 +4,30 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+
+import nyc.c4q.akashaarcher.group3memestudio.model.ThumbnailAdapter;
 
 /**
  * Created by shawnspeaks on 1/16/17.
  */
 
-public class CustomLinearLayout extends LinearLayout {
+public class CustomRelativeLayout extends RelativeLayout {
 
-    private int paintColor;
+    private int paintColor = Color.RED;
     private Paint drawPaint, canvasPaint;
     private Path drawPath;
     Canvas drawCanvas;
     Bitmap canvasBitmap;
 
 
-    public CustomLinearLayout(Context context, AttributeSet attrs) {
+    public CustomRelativeLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         createPaint();
     }
@@ -40,12 +43,14 @@ public class CustomLinearLayout extends LinearLayout {
     protected void onDraw(Canvas canvas) {
         canvas.drawBitmap(canvasBitmap, 0, 0, canvasPaint);
         canvas.drawPath(drawPath, drawPaint);
-
         super.onDraw(canvas);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        if(ThumbnailAdapter.getThumbnails().get(3).getIsActiveFilter() < 0){
+            return false;
+        }
         float touchX = event.getX();
         float touchY = event.getY();
         switch(event.getAction()){
@@ -74,6 +79,8 @@ public class CustomLinearLayout extends LinearLayout {
         drawPaint.setStrokeWidth(20);
         drawPath = new Path();
         canvasPaint = new Paint(Paint.DITHER_FLAG);
+
+
     }
 
     @Override

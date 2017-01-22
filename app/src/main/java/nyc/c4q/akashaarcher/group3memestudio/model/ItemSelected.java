@@ -1,6 +1,4 @@
-package nyc.c4q.akashaarcher.group3memestudio;
-
-import nyc.c4q.akashaarcher.group3memestudio.model.Thumbnails;
+package nyc.c4q.akashaarcher.group3memestudio.model;
 
 /**
  * Created by shawnspeaks on 1/17/17.
