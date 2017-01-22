@@ -18,7 +18,7 @@ import nyc.c4q.akashaarcher.group3memestudio.Model.Thumbnails;
 public class ThumbnailViewHolder extends RecyclerView.ViewHolder {
 
     private final View view;
-    private final ImageView  memePic;
+    private final ImageView memePic;
     private final TextView memeTitle;
 
 
@@ -56,11 +56,5 @@ public class ThumbnailViewHolder extends RecyclerView.ViewHolder {
 
     }
 
-
-    /*
-     /*
-    Picasso.with(context).load(R.drawable.drawableName).into(imageView);
-
-     */
 
 }

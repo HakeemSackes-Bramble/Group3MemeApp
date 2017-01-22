@@ -1,9 +1,12 @@
 package nyc.c4q.akashaarcher.group3memestudio;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import java.util.Arrays;
@@ -21,6 +24,12 @@ public class ThumbnailAdapter extends RecyclerView.Adapter {
     private int mWidth;
 
     private Listener mListener;
+
+    Intent innerIntent;
+    private String TAG = "Adapter";
+    private ImageView ivHoneyBun;
+
+    Context context;
 
     public ThumbnailAdapter(int width, Listener listener){
 
@@ -50,7 +59,7 @@ public class ThumbnailAdapter extends RecyclerView.Adapter {
         viewHolder.getMemePic().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            switch (thumbnails.get(position).getTitle()){
+                switch (thumbnails.get(position).getTitle()) {
 
                 case "Lily!":
 
@@ -80,6 +89,12 @@ public class ThumbnailAdapter extends RecyclerView.Adapter {
 
 
                     break;
+                    case "Honey Bun":
+                        mListener.addHoneyBun();
+//
+//                        Intent honeyBunIntent = new Intent(view.getContext(), HoneyBunActivity.class);
+//                        view.getContext().startActivity(honeyBunIntent);
+                        break;
 
 
             }
@@ -97,6 +112,7 @@ public class ThumbnailAdapter extends RecyclerView.Adapter {
     }
 
     public interface Listener{
+        void addHoneyBun();
 
         void addRecView(RecyclerView recyclerView);
 

@@ -4,6 +4,9 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -14,10 +17,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Field;
 
 public class MainActivity extends AppCompatActivity implements ThumbnailAdapter.Listener {
 
@@ -56,11 +64,13 @@ public class MainActivity extends AppCompatActivity implements ThumbnailAdapter.
 
             case R.id.finished_btn:
 
-                mPlaceHolder.setDrawingCacheEnabled(true);
-                mPlaceHolder.buildDrawingCache(true);
+//                mPlaceHolder.setDrawingCacheEnabled(true);
+//                mPlaceHolder.buildDrawingCache(true);
+//
+//                Bitmap b = Bitmap.createBitmap(mPlaceHolder.getDrawingCache());
 
-                Bitmap b = Bitmap.createBitmap(mPlaceHolder.getDrawingCache());
-                MediaStore.Images.Media.insertImage(getContentResolver(), b, "" , "");
+
+                MediaStore.Images.Media.insertImage(getContentResolver(), getBitmapFromView(mPlaceHolder), "" , "");
                 break;
 
             case R.id.share_btn:
@@ -114,12 +124,70 @@ public class MainActivity extends AppCompatActivity implements ThumbnailAdapter.
             }
 
 
+    @Override
+    public void addHoneyBun() {
+        mPlaceHolder.setDrawingCacheEnabled(true);
+        mPlaceHolder.buildDrawingCache(true);
+        //mPlaceHolder.setBackgroundResource(R.drawable.placeholder);
+
+        Bitmap b = Bitmap.createBitmap(mPlaceHolder.getDrawingCache());
+        Drawable d = new BitmapDrawable(getResources(), b);
+
+        ImageView picture = new ImageView(this);
+        EditText textView = new EditText(this);
+
+        Toast.makeText(this,"It's working", Toast.LENGTH_LONG).show();
+
+        RelativeLayout.LayoutParams layoutParams1=new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
+                300);
+        layoutParams1.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+
+        textView.setLayoutParams(layoutParams1);
+        mPlaceHolder.addView(textView);
+
+        textView.setTextColor(Color.parseColor("white"));
+        textView.setTextSize(30);
+        textView.getBackground().setColorFilter(Color.parseColor("black"), PorterDuff.Mode.SRC_IN);
+        try {
+            Field f = TextView.class.getDeclaredField("mCursorDrawableRes");
+            f.setAccessible(true);
+            f.set(textView, R.drawable.cursor_color);
+        } catch (Exception ignored) {
+        }
+
+        textView.setHint("Please type your text here");
+        RelativeLayout.LayoutParams layoutParams=new RelativeLayout.LayoutParams(mPlaceHolder.getWidth()*2,
+                mPlaceHolder.getHeight()-300);
+        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        picture.setLayoutParams(layoutParams);
+        mPlaceHolder.addView(picture);
+
+        picture.setImageDrawable(d);
+        mPlaceHolder.setBackgroundColor(Color.parseColor("black"));
+
+
+
+
+    }
 
     @Override
     public void addRecView(RecyclerView recyclerView) {
 
         mPlaceHolder.addView(recyclerView);
 
+    }
+
+
+    public static Bitmap getBitmapFromView(View view) {
+        Bitmap returnedBitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(),Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(returnedBitmap);
+        Drawable bgDrawable =view.getBackground();
+        if (bgDrawable!=null)
+            bgDrawable.draw(canvas);
+        else
+            canvas.drawColor(Color.WHITE);
+        view.draw(canvas);
+        return returnedBitmap;
     }
 }
 
