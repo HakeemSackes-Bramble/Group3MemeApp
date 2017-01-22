@@ -33,17 +33,17 @@
         <EditText
             android:id="@+id/honeybun_text_field"
             android:layout_width="350dp"
-            android:layout_height="80dp"
+            android:layout_height="100dp"
             android:layout_above="@+id/honey_bun_img"
             android:layout_gravity="center"
-            android:background="@color/lightPrimary"
+            android:background="@color/textIcons"
             android:inputType="textMultiLine"
             android:padding="3dp" />
 
         <ImageView
             android:id="@+id/honey_bun_img"
             android:layout_width="350dp"
-            android:layout_height="285dp"
+            android:layout_height="325dp"
             android:layout_gravity="center"
             android:src="@drawable/honey_bun_thumb" />
     </LinearLayout>
