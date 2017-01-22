@@ -25,12 +25,18 @@ import nyc.c4q.akashaarcher.group3memestudio.model.Thumbnails;
 
 public class ThumbnailAdapter extends RecyclerView.Adapter {
 
+
     public static String getFirstImage() {
         return FIRST_IMAGE;
     }
 
-    private static final String FIRST_IMAGE ="getFirstImage" ;
+    private static final String FIRST_IMAGE = "getFirstImage";
+
     Intent innerIntent;
+    private String TAG = "Adapter";
+    private ImageView ivHoneyBun;
+
+    Context context;
     private List<Thumbnails> thumbnails = Arrays.asList(
             new Thumbnails(R.drawable.demotivation_thumb, "Demotivate"),
             new Thumbnails(R.drawable.honey_bun_thumb, "Honey Bun"),
@@ -47,37 +53,40 @@ public class ThumbnailAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         ThumbnailViewHolder viewHolder = (ThumbnailViewHolder) holder;
-        final Context  context = holder.itemView.getContext();
+        final Context context = holder.itemView.getContext();
         final Thumbnails thumbnail = thumbnails.get(position);
         viewHolder.bind(thumbnail);
         viewHolder.getMemePic().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            switch (thumbnails.get(position).getTitle()){
+                switch (thumbnails.get(position).getTitle()) {
 
-                case "Lily!":
-                    ImageView myImage = new ImageView(view.getContext());
-                    MainActivity.getmPlaceHolder().addView(myImage);
-                    myImage.setImageResource(R.drawable.lily_thumb);
-                    myImage.setScaleX((float)0.2);
-                    myImage.setScaleY((float)0.2);
-                    break;
+                    case "Honey Bun":
+                        Intent honeyBunIntent = new Intent(view.getContext(), HoneyBunActivity.class);
+                        view.getContext().startActivity(honeyBunIntent);
+                        break;
 
-                case "Demotivate":
+                    case "Lily!":
+                        ImageView myImage = new ImageView(view.getContext());
+                        MainActivity.getmPlaceHolder().addView(myImage);
+                        myImage.setImageResource(R.drawable.lily_thumb);
+                        myImage.setScaleX((float) 0.2);
+                        myImage.setScaleY((float) 0.2);
+                        break;
 
+                    case "Demotivate":
 
-                    break;
-                case "Inner Me":
-                    innerIntent = new Intent(context, InnerMeActivity.class);
-                    ((Activity)context).startActivityForResult(innerIntent, 6);
-
+                        break;
+                    case "Inner Me":
+                        innerIntent = new Intent(context, InnerMeActivity.class);
+                        ((Activity) context).startActivityForResult(innerIntent, 6);
+                        break;
+                }
             }
-            }
-        });
-
-
-
     }
+
+    );
+}
 
 
     @Override
@@ -85,14 +94,13 @@ public class ThumbnailAdapter extends RecyclerView.Adapter {
         return thumbnails.size();
     }
 
-    public String BitMapToString(Bitmap bitmap){
-        ByteArrayOutputStream baos=new  ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG,100, baos);
-        byte [] b=baos.toByteArray();
-        String temp= Base64.encodeToString(b, Base64.DEFAULT);
+    public String BitMapToString(Bitmap bitmap) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        byte[] b = baos.toByteArray();
+        String temp = Base64.encodeToString(b, Base64.DEFAULT);
         return temp;
     }
-
 
 
 }

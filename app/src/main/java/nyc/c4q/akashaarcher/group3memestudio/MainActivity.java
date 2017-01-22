@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
                 new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
 
         recyclerView = (RecyclerView) findViewById(R.id.thumbnail_rv);
-        button = (Button) findViewById(R.id.main_btn);
         mPhotoLayout = (LinearLayout) findViewById(R.id.placeholder);
         layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
@@ -77,6 +76,18 @@ public class MainActivity extends AppCompatActivity {
                 Bitmap b = Bitmap.createBitmap(mPlaceHolder.getDrawingCache());
                 MediaStore.Images.Media.insertImage(getContentResolver(), b, "", "");
                 break;
+//         //   Intent intent = new Intent();
+//            intent.setType("image/*");
+//            intent.setAction(Intent.ACTION_GET_CONTENT);
+//            startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+//            break;
+
+//            case R.id.finished_btn:
+//            mPlaceHolder.setDrawingCacheEnabled(true);
+//            mPlaceHolder.buildDrawingCache(true);
+//            Bitmap b = Bitmap.createBitmap(mPlaceHolder.getDrawingCache());
+//            MediaStore.Images.Media.insertImage(getContentResolver(), b, "" , "");
+//            break;
         }
 
     }
@@ -100,9 +111,11 @@ public class MainActivity extends AppCompatActivity {
 
             } catch (IOException e) {
                 e.printStackTrace();
+
             }
         }
     }
+
 
     public static LinearLayout getmPlaceHolder() {
         return mPlaceHolder;
