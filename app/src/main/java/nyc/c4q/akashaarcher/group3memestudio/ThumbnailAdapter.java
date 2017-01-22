@@ -80,8 +80,15 @@ public class ThumbnailAdapter extends RecyclerView.Adapter {
 
                     RecyclerView mRecViewTop = new RecyclerView(view.getContext());
                     RecyclerView mRecViewBottom = new RecyclerView(view.getContext());
+                    RecyclerView mRecViewLeft = new RecyclerView(view.getContext());
+                    RecyclerView mRecViewRight = new RecyclerView(view.getContext());
+
                     mListener.addRecView(mRecViewTop);
                     mListener.addRecView(mRecViewBottom);
+                    mListener.addRecView(mRecViewLeft);
+                    mListener.addRecView(mRecViewRight);
+
+
                     RelativeLayout.LayoutParams layoutParams1=new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
                             RelativeLayout.LayoutParams.WRAP_CONTENT);
                     layoutParams1.addRule(RelativeLayout.ALIGN_PARENT_TOP);
@@ -98,6 +105,25 @@ public class ThumbnailAdapter extends RecyclerView.Adapter {
                     mRecViewBottom.setAdapter(new LilyAdapter(thumbnails.get(position),mWidth));
                     mRecViewBottom.setLayoutManager(layoutManager2);
                     mRecViewBottom.setLayoutParams(layoutParams);
+                    RelativeLayout.LayoutParams layoutParams3=new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
+                            RelativeLayout.LayoutParams.WRAP_CONTENT);
+                    layoutParams3.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+                    layoutParams3.addRule(RelativeLayout.BELOW,mRecViewTop.getId());
+                    LinearLayoutManager layoutManager3= new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false);
+                    mRecViewLeft.setAdapter(new LilyAdapter(thumbnails.get(position),mWidth));
+                    mRecViewLeft.setLayoutManager(layoutManager3);
+                    mRecViewLeft.setLayoutParams(layoutParams3);
+
+                    RelativeLayout.LayoutParams layoutParams4=new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
+                            RelativeLayout.LayoutParams.WRAP_CONTENT);
+                    layoutParams4.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+                    layoutParams4.addRule(RelativeLayout.BELOW,mRecViewTop.getId());
+                    LinearLayoutManager layoutManager4= new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false);
+                    mRecViewRight.setAdapter(new LilyAdapter(thumbnails.get(position),mWidth));
+                    mRecViewRight.setLayoutManager(layoutManager4);
+                    mRecViewRight.setLayoutParams(layoutParams4);
+
+
                     break;
 
                     case "Demotivate":

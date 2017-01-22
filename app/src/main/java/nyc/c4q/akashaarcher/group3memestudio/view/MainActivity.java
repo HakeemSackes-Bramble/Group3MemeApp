@@ -44,8 +44,8 @@ public class MainActivity extends AppCompatActivity implements ThumbnailAdapter.
     private static Bitmap mBitmap;
     private Button button;
     private static RelativeLayout mPlaceHolder;
-    private static RelativeLayout mPhotoLayout;
-    Bitmap bmp = null;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,18 +57,13 @@ public class MainActivity extends AppCompatActivity implements ThumbnailAdapter.
         colorPicker = (ColorPicker) findViewById(R.id.tempLayout);
         colorPicker.setVisibility(View.INVISIBLE);
         recyclerView = (RecyclerView) findViewById(R.id.thumbnail_rv);
-        //mPhotoLayout = (RelativeLayout) findViewById(R.id.placeholder);
         mPlaceHolder = (RelativeLayout) findViewById(R.id.placeholder);
         layoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(new ThumbnailAdapter(recyclerView.getWidth(), this));
+        recyclerView.setAdapter(new ThumbnailAdapter(mPlaceHolder.getWidth(), this));
 
 
-    }
 
-    public void placeInnerPhoto() {
-        Drawable d23 = new BitmapDrawable(getResources(), mBitmap);
-        mPlaceHolder.setBackground(d23);
     }
 
     public void selectSaveFromGallery(View view) {
@@ -81,11 +76,6 @@ public class MainActivity extends AppCompatActivity implements ThumbnailAdapter.
                 startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
                 break;
             case R.id.finished_btn:
-
-//                mPlaceHolder.setDrawingCacheEnabled(true);
-//                mPlaceHolder.buildDrawingCache(true);
-//
-//                Bitmap b = Bitmap.createBitmap(mPlaceHolder.getDrawingCache());
 
 
                 MediaStore.Images.Media.insertImage(getContentResolver(), getBitmapFromView(mPlaceHolder), "", "");
@@ -113,12 +103,18 @@ public class MainActivity extends AppCompatActivity implements ThumbnailAdapter.
         }
     }
 
+
+
     @Override
     protected void onStart() {
         super.onStart();
 
+        //recyclerView.setAdapter(new ThumbnailAdapter(mPlaceHolder.getWidth(), this));
 
     }
+
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -135,8 +131,6 @@ public class MainActivity extends AppCompatActivity implements ThumbnailAdapter.
 
                 mPlaceHolder.setBackground(d);
                 mPlaceHolder.removeAllViews();
-//                      ImageView imageView = (ImageView) findViewById(R.id.placeholder);
-//                      imageView.setImageBitmap(mBitmap);
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -151,7 +145,6 @@ public class MainActivity extends AppCompatActivity implements ThumbnailAdapter.
     public void addHoneyBun() {
         mPlaceHolder.setDrawingCacheEnabled(true);
         mPlaceHolder.buildDrawingCache(true);
-        //mPlaceHolder.setBackgroundResource(R.drawable.placeholder);
 
         Bitmap b = Bitmap.createBitmap(mPlaceHolder.getDrawingCache());
         Drawable d = new BitmapDrawable(getResources(), b);
@@ -225,8 +218,5 @@ public class MainActivity extends AppCompatActivity implements ThumbnailAdapter.
         return mBitmap;
     }
 
-    public static void setmBitmap(Bitmap mBitmap) {
-        MainActivity.mBitmap = mBitmap;
-    }
 }
 

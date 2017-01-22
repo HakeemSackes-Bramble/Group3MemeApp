@@ -109,6 +109,8 @@ public class InnerMeActivity extends AppCompatActivity {
                 firstText.setVisibility(View.VISIBLE);
                 secondText.setVisibility(View.VISIBLE);
                 innerTextBack.setBackgroundColor(Color.parseColor("white"));
+                firstText.setTextColor(Color.parseColor("black"));
+                secondText.setTextColor(Color.parseColor("black"));
                 innerTextBack.setVisibility(View.VISIBLE);
 
 
@@ -144,30 +146,6 @@ public class InnerMeActivity extends AppCompatActivity {
                 Log.d("Bitmap created: ", b.toString());
 
 
-//                Intent in1 = new Intent(this, MainActivity.class);
-//                in1.putExtra("image", b);
-//                setResult(6,in1);
-//                finish();
-
-//                try {
-//                    //Write file
-//                    String filename = "bitmap.png";
-//                    FileOutputStream stream = this.openFileOutput(filename, Context.MODE_PRIVATE);
-//                    b.compress(Bitmap.CompressFormat.PNG, 100, stream);
-//
-//                    //Cleanup
-//                    stream.close();
-//                    b.recycle();
-//
-//                    //Pop intent
-//                    Intent in1 = new Intent(this, MainActivity.class);
-//                    in1.putExtra("image", b);
-//                    finish();
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-
-
                 MediaStore.Images.Media.insertImage(getContentResolver(), b, "", "");
                 break;
         }
@@ -188,25 +166,4 @@ public class InnerMeActivity extends AppCompatActivity {
         }
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate menu resource file.
-//        getMenuInflater().inflate(R.menu.share_menu, menu);
-//
-//        // Locate MenuItem with ShareActionProvider
-//        MenuItem item = menu.findItem(R.id.menu_item_share);
-//
-//        // Fetch and store ShareActionProvider
-//        mShareActionProvider = (ShareActionProvider) item.getActionProvider();
-//
-//        // Return true to display menu
-//        return true;
-//    }
-//
-//    // Call to update the share intent
-//    private void setShareIntent(Intent shareIntent) {
-//        if (mShareActionProvider != null) {
-//            mShareActionProvider.setShareIntent(shareIntent);
-//        }
-//    }
 }
