@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/honey_bun_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Honey Bun Meme"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimary"
+        android:textSize="30dp" />
+
+    <Button
+        android:id="@+id/honeybun_gallery_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:onClick="selectSaveFromGallery"
+        android:paddingLeft="@dimen/space_below"
+        android:paddingRight="@dimen/space_below"
+        android:text="SELECT FROM GALLERY" />
+
+    <LinearLayout
+        android:id="@+id/honey_meme_placeholder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/honeybun_text_field"
+            android:layout_width="350dp"
+            android:layout_height="80dp"
+            android:layout_above="@+id/honey_bun_img"
+            android:layout_gravity="center"
+            android:background="@color/lightPrimary"
+            android:inputType="textMultiLine"
+            android:padding="3dp" />
+
+        <ImageView
+            android:id="@+id/honey_bun_img"
+            android:layout_width="350dp"
+            android:layout_height="285dp"
+            android:layout_gravity="center"
+            android:src="@drawable/honey_bun_thumb" />
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/save_img_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/space_below"
+        android:text="SAVE MEME" />
+
+</LinearLayout>
